@@ -14,6 +14,21 @@ return [
     |
     */
 
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
+    ],
+
+    'bank' => [
+        'webhook_secret' => env('BANK_WEBHOOK_SECRET'),
+        'plaid' => [
+            'client_id' => env('PLAID_CLIENT_ID'),
+            'secret' => env('PLAID_SECRET'),
+            'environment' => env('PLAID_ENV', 'sandbox'),
+        ],
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],
