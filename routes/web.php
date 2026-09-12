@@ -9,7 +9,10 @@ use App\Http\Controllers\WorkspaceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    $hasActiveSubscription = auth()->check()
+        && auth()->user()->subcriptions()->whereNotIn('category', ['accidental', 'cancelled', 'canceled'])->exists();
+
+    return view('welcome', compact('hasActiveSubscription'));
 });
 
 Route::middleware('auth')->group(function () {

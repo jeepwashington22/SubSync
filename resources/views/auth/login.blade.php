@@ -9,10 +9,16 @@
     <!-- This ensures Tailwind CSS is compiled -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gradient-to-br from-[#4a6c6a] to-[#2d4240] min-h-screen text-white font-sans antialiased flex flex-col">
+<body class="relative min-h-screen bg-black text-white font-sans antialiased flex flex-col overflow-hidden">
+
+<!-- Animated Starry Background (matching welcome page) -->
+<div class="fixed inset-0 bg-[radial-gradient(ellipse_at_bottom,_#262626_0%,_#000_100%)]"></div>
+<canvas id="stars-background" class="stars-canvas" aria-hidden="true"></canvas>
+<div class="silk-overlay" aria-hidden="true"></div>
+
 
 <!-- Top Navigation Header -->
-<header class="flex justify-between items-center p-8 w-full">
+<header class="relative z-10 flex justify-between items-center p-8 w-full">
     <a href="/" class="text-sm text-gray-300 hover:text-white flex items-center gap-2 transition">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -28,7 +34,7 @@
 </header>
 
 <!-- Main Login Area -->
-<main class="flex-1 flex flex-col justify-center items-center px-4 pb-32">
+<main class="relative z-10 flex-1 flex flex-col justify-center items-center px-4 pb-32">
 
     <!-- Center Logo (Placeholder shape matching your image) -->
     <div class="mb-12">
@@ -79,7 +85,7 @@
         <input type="hidden" name="remember" value="on">
 
         <!-- Submit Button -->
-        <button type="submit" class="w-full bg-[#cbd5e1] hover:bg-white text-gray-800 font-semibold py-3.5 rounded transition">
+        <button type="submit" class="w-full bg-orange-500 hover:bg-orange-400 text-black font-semibold py-3.5 rounded transition shadow-lg shadow-orange-950/40">
             Login
         </button>
     </form>
