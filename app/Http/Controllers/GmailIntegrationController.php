@@ -52,14 +52,18 @@ class GmailIntegrationController extends Controller
     public function handleGoogleCallback(Request $request): RedirectResponse
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            /** @var \Laravel\Socialite\Two\AbstractProvider $provider */
+            $provider = Socialite::driver('google');
+            $googleUser = $provider->user();
         } catch (InvalidStateException $e) {
             // The session "state" was lost between redirect and callback,
             // usually because the app was browsed at a different address
             // (e.g. 127.0.0.1 vs localhost) than GOOGLE_REDIRECT_URI.
             // Retry statelessly - the code is still validated with Google.
             try {
-                $googleUser = Socialite::driver('google')->stateless()->user();
+                /** @var \Laravel\Socialite\Two\AbstractProvider $provider */
+                $provider = Socialite::driver('google');
+                $googleUser = $provider->stateless()->user();
             } catch (\Throwable $fallback) {
                 Log::warning('Google OAuth callback failed', ['error' => $fallback->getMessage()]);
 
@@ -84,6 +88,13 @@ class GmailIntegrationController extends Controller
             'google_refresh_token' => $googleUser->refreshToken ?? $user->google_refresh_token,
             'google_token_expires_at' => now()->addSeconds((int) ($googleUser->expiresIn ?? 3600)),
         ])->save();
+
+        // Users who signed in with Google get their Gmail connected
+        // transparently: scan the inbox immediately so subscriptions are
+        // imported without them ever seeing a "Connect Gmail" button.
+        if ($user->auth_provider === 'google') {
+            return $this->scanInboxForSubscriptions($request);
+        }
 
         return redirect()
             ->route('dashboard')
