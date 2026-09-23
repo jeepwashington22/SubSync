@@ -19,17 +19,7 @@
     <x-navigation/>
 
     <div class="lg:pl-72">
-        <header class="sticky top-0 z-30 border-b border-white/[0.08] bg-[#111214]/70 backdrop-blur-xl">
-            <div class="flex items-center justify-between px-5 py-4 sm:px-8">
-                <button @click="sidebarOpen = true" class="rounded-lg border border-white/10 p-2 text-gray-400 hover:bg-white/10 lg:hidden" aria-label="Open navigation">
-                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-                </button>
-                <div class="hidden lg:block">
-                    <p class="text-xs text-[#68685f]">Workspace</p>
-                    <h1 class="font-display text-xl font-semibold tracking-tight text-[#f4f4f3]">Billing History</h1>
-                </div>
-            </div>
-        </header>
+        <x-topbar subtitle="Workspace" title="Billing History"/>
 
         <main class="mx-auto max-w-7xl px-5 py-8 sm:px-8">
             <div class="mb-8 lg:hidden">

@@ -19,22 +19,14 @@
     <div x-show="sidebarOpen" x-cloak x-transition.opacity @click="sidebarOpen = false" class="fixed inset-0 z-40 bg-black/60 lg:hidden" aria-hidden="true"></div>
     <x-navigation/>
     <div class="lg:pl-72">
-        <header class="sticky top-0 z-30 border-b border-white/[0.08] bg-[#111214]/70 backdrop-blur-xl">
-            <div class="flex items-center justify-between px-5 py-4 sm:px-8">
-                <button @click="sidebarOpen = true" class="rounded-lg border border-white/10 p-2 text-gray-400 hover:bg-white/10 lg:hidden" aria-label="Open navigation"><svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
-                <div class="hidden lg:block">
-                    <p class="text-xs text-[#68685f]">Automated sync</p>
-                    <h1 class="font-display text-xl font-semibold text-[#f4f4f3] tracking-tight">Bank accounts</h1>
-                </div>
-                <div class="flex items-center gap-3">
-                    <form action="{{ route('bank-accounts.link') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-[#1a0d02] shadow-lg shadow-orange-950/40 transition hover:bg-orange-400"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Link account</button>
-                    </form>
-                    <a href="{{ route('dashboard') }}" class="rounded-lg border border-white/10 p-2 text-gray-400 hover:bg-white/10 lg:hidden"><svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></a>
-                </div>
-            </div>
-        </header>
+        <x-topbar subtitle="Automated sync" title="Bank accounts">
+            <x-slot name="actions">
+                <form action="{{ route('bank-accounts.link') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-orange-500 px-4 py-2 text-sm font-semibold text-[#1a0d02] shadow-lg shadow-orange-950/40 transition hover:bg-orange-400"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Link account</button>
+                </form>
+            </x-slot>
+        </x-topbar>
         <main class="mx-auto max-w-7xl px-5 py-8 sm:px-8">
             @if(session('success'))
                 <div class="mb-6 rounded-xl border border-green-400/30 bg-green-400/10 px-4 py-3 text-sm font-medium text-green-300">{{ session('success') }}</div>
