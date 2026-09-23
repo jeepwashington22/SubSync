@@ -20,6 +20,15 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    // Separate Google OAuth client for "Sign in with Google".
+    // Google requires a distinct redirect URI per flow, so the Gmail
+    // integration flow above keeps its own GOOGLE_REDIRECT_URI.
+    'google_login' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_LOGIN_REDIRECT_URI'),
+    ],
+
     'bank' => [
         'webhook_secret' => env('BANK_WEBHOOK_SECRET'),
         'plaid' => [
